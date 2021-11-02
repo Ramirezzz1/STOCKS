@@ -11,15 +11,15 @@ class StockRow extends Component {
             price:null,
             date:null,
             time:null,
-            dollar_change:0,
-            percent_change:0
+            dollar_change: null,
+            percent_change: null
             
         }
     }
 
     changeStyle() {
         return {
-            color: (this.state.dollar_change > 0 ) ? 'green' : 'red',
+            color: (this.state.dollar_change  > 0.00 ) ? 'green' : 'red',
             fontSize: '0.8rem',
             marginLeft: 5
 
@@ -35,8 +35,9 @@ class StockRow extends Component {
         });
         stock.getYesterdaysClose(this.props.ticker, data.date, (yesterday) => {
             // console.log(this.props.ticker, yesterday)
-            const dollar_change = (data.price - yesterday.price).toFixed(1)
+            const dollar_change = (data.price - yesterday.price).toFixed(2)
             const percent_change = (100*dollar_change / yesterday.price).toFixed(2)
+            
             this.setState({
                 dollar_change: `$${dollar_change}`,
                 percent_change: ` (${percent_change}%) `
